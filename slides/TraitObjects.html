@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Trait Objects</title>
+    </head>
+    <body>
+        <pre>
+public interface MyInterface {
+    String getName();
+}
+
+public void myMethod(MyInterface myVar) {
+    System.out.println("my_var.getName() = " + myVar.getName() );
+}
+</pre>
+
+Usually we use Traits with generics like
+<br>fn my_func &lt;Type : Trait&gt;(my_var : Type)...
+</p>
+<p>
+This means my_func can work on type Type provided it implements trait Trait.
+</p>
+
+
+<p>
+Collections such as vectors and arrays can only hold a single type.
+<br> let my_vec : Vec&lt;String&gt;;
+</p>
+
+
+<p>
+Trait objects give us the same functionality as the java code above.
+</p>
+
+<pre>
+fn my_func(my_var : Box&lt;MyTrait&gt;).. 
+let my_struct_instance = MyStruct{...};
+let my_trait_object = Box::new(my_structinstance);
+my_func(my_trait_object);
+let my_vec : Vec&lt;Box&lt;MyTrait&gt;&gt;;
+</pre>
+
+        <a href="Concurrency.html">Next</a>
+    </body>
+</html>

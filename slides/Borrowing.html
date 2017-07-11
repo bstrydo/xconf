@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Borrowing</title>
+    </head>
+    <body>
+        <pre>
+let v1 = String::from("I am just another old String");
+
+let v2 = &amp;v1;  //we have an immutable reference to v1
+
+println!("v2 = {}" , v2);  //prints our value
+println!("v1 = {}" , v1);  //Still works
+
+
+let mut v1 = String::from("Let's go flying");
+let v2 = &amp;v1;  //get an immutable reference
+v1 = String::from("Something else"); //oops here's a problem
+
+let v2 = &amp;mut v1;  //mutable reference
+v2.push_str(" some more text"); //so v1 is now updated too
+let v3 = &amp;v1;  //problem
+let v3 = &amp;mut v1;  //problem
+        </pre>
+        <a href="InitialisingVariables.html">Next</a>
+    </body>
+</html>

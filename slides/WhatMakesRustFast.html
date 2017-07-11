@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>What makes Rust fast</title>
+    </head>
+    <body>
+        <p>
+            <ul>
+                <li>Compiled</li>
+                <li>Stack vs heap</li>
+                <li>Monomorphization</li>
+                <pre>
+                    fn my_func &lt;T&gt; (my_parm : T) -&gt; T {...}
+
+                    fn main() {
+                        my_func&lt;i32&gt;27);
+                    }
+
+                    Becomes something like:
+                    fn my_func_i32 (my_parm : i32) -&gt; i32 {...}
+
+                    fn main() {
+                        my_func_i32(27);
+                    }
+                    }
+                </pre>
+                <li>Compiler optimizations</li>
+                <li>No GC</li>
+            </ul>
+        </p>
+        <a href="RustIsSafe.html">Next</a>
+    </body>
+</html>

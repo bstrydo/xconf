@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Exhaustive Checking</title>
+    </head>
+    <body>
+        <pre>
+enum Weekday {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+
+let day_of_the_week = Weekday::Monday;
+
+match day_of_the_week {
+    Monday | Tuesday =&gt; println!("Early in the week"),
+    Wednesday =&gt; println!("Down hill from here"),
+    Thursday =&gt; println!("Party night"),
+    Friday =&gt; println!("the weekend is here"),
+    Saturday | Sunday =&gt; println!("Its time to play and braai"),
+}
+        </pre>
+        <a href="LifeTimes.html">Next</a>
+    </body>
+</html>

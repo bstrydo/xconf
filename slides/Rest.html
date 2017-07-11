@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Rest Example</title>
+    </head>
+    <body>
+        <pre>
+#[derive(RustcEncodable, RustcDecodable)]
+struct Message { value: String}
+fn main() {
+    let messages = Arc::new(Mutex::new(vec![Message { value: "Hello, World".to_string()}]));
+    let (messages_get_id, message_post) = (messages.clone(), messages.clone() );
+    let mut router = Router::new();
+    router.get("/", move |_: &amp;mut Request| get(&amp;messages.lock().unwrap()[..]), "get");
+    router.get("/:id", move |request: &amp;mut Request| get_id(request, &amp;messages_get_id.lock().unwrap()[..]), "get_id");
+    router.post("/", move |request: &amp;mut Request| post(request, &amp;mut messages_post.lock().unwrap() ), "post");
+
+    Iron::new(router).http("localhost:3000").unwrap();
+}
+fn get(messages: &amp;[Message]) -&gt; IronResult&lt;Response&gt; {
+    Ok(Response::with((status::BadRequest, json::encode(&amp;messages).unwrap())))
+}
+fn get_id(request : &amp;mut Request, messages: &amp;[Message]) -&gt; IronResult&lt;Response&gt; {
+    match request.extensions.get::&lt;Router&gt;() {
+        Some(parms) =&gt; match parms.find("id") {
+            Some(id) =&gt; match id.parse::&lt;usize&gt;() {
+                Ok(id) if id &lt; messages.len() =&gt; Ok(Response::with((status::Ok, json::encode(&amp;messages[id]).unwrap()))),
+                Ok(_) =&gt; Ok(Response::with((status::NotFound, "please pass a valid id") ) ),
+                Err(_) =&gt; Ok(Response::with((status::BadRequest, "please pass a valid id") ) ),
+            },
+            None =&gt; Ok(Response::with((status::BadRequest, "Error: can't extract id ") ) ),
+        },
+        None =&gt; Ok(Response::with( (status::BadRequest, "Error: can't extract the parameters ") ) ),
+    }
+}
+fn post(request : &amp;mut Request, messages: &amp;mut Vec&lt;Message&gt;) -&gt; IronResult&lt;Response&gt; {
+    let mut payload = String::new();
+    request.body.read_to_string(&amp;mut payload).unwrap();
+    messages.push(json::decode(&amp;payload).unwrap());
+    Ok(Response::with((status::Ok, json::encode(&amp;messages[messages.len()-1]).unwrap() ) ) )
+}
+        </pre>
+        <a href="DeveloperExperience.html">Next</a>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Traits</title>
+    </head>
+    <body>
+        <p>
+        <ul>
+            <li> Defining a Trait
+                <pre>
+                    trait MyTrait {
+                        fn get_name(&amp;self) -> &amp;str;
+                        fn print_name(&amp;self) {
+                            println!("name = {}", get_name() );
+                        }
+                    }
+                </pre>
+            </li>
+            <li> Implementing a Trait
+                <pre>
+                        impl MyTrait for MyStruct {
+                        }
+                </pre>
+            </li>
+            <li> Adding Traits to existing data types
+                <pre>
+                    impl MyTrait for String {...}
+                </pre>
+            </li>
+        </ul>
+        </p>
+        <a href="TraitObjects.html">Next</a>
+    </body>
+</html>

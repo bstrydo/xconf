@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Rust is safe</title>
+    </head>
+    <body>
+            <pre>
+#include <stdio.h>
+#include <stdlib.h>
+
+int* dangle() {
+    int my_var = 5;
+    return amp;my_var;
+}
+
+int main(int argc, char** argv) {
+    int *d = dangle();
+    printf("d = %d\n", *d);
+    return 0;
+}
+            </pre>
+        <hr>
+            <pre>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+    int arr[3];
+    arr[0]=1;
+    arr[1]=2;
+    arr[2]=3;
+
+    printf("var arr has %d elements\n", (int)sizeof(arr)/(int)sizeof(int) );
+    for (int i=0; i<5; i++)
+        printf("element %d is %d\n", i, arr[i]);
+    return 0;
+}
+            </pre>
+        <a href="Mutability.html">Next</a>
+    </body>
+</html>

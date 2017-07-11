@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Concurrency</title>
+    </head>
+    <body>
+        <pre>
+fn main() {
+    let (tx, rx) = mpsc::channel();  //Create a channel
+    let counter = Arc::new(Mutex::new(0)); //counter is created for shared state
+    let producer_counter = counter.clone();
+    let receiver_counter = counter.clone();
+
+    let mut handles = vec![
+        thread::spawn(move || producer(tx,producer_counter) ),
+        thread::spawn(move || receiver(rx, receiver_counter) )
+        ];
+
+    for handle in handles { handle.join(); }
+}
+fn producer(tx : mpsc::Sender&lt;String&gt;, counter : Arc&lt;Mutex&lt;i32&gt;&gt;) {
+    while *counter.lock().unwrap() &lt; 10 { //accessing the shared state
+        for val in vec![ String::from("Thank"), String::from("you"), String::from("for"), String::from("attending"), String::from("Xconf"),
+            ] {
+            tx.send(val).unwrap();
+            thread::sleep(Duration::new(1, 0));
+        }
+    }
+}
+fn receiver(rx : mpsc::Receiver&lt;String&gt;, counter : Arc&lt;Mutex&lt;i32&gt;&gt;) {
+    for received in &amp;rx {
+        println!("Got: {}", received);
+        if received == "Xconf" {
+            *counter.lock().unwrap() += 1;  //Accessing and changing the shared state
+        }
+    }
+}
+        </pre>
+        <a href="Testing.html">Next</a>
+    </body>
+</html>

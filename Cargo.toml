@@ -1,0 +1,9 @@
+[package]
+name = "xconf"
+version = "0.1.0"
+authors = ["Brett Strydom <bstrydo@thoughtworks.com>"]
+
+[dependencies]
+iron = "*"
+router = "*"
+rustc-serialize = "0.3.22"

@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <title>Cheat Sheet</title>
+    </head>
+    <body>
+        <pre>
+  Variable declaration:
+      let my_var = 5; //type is inferred and immutable
+      let my_var : i32 = 5; //type is provided, but variable still immutable
+      let mut my_var = 5;  //type is inferred but is mutable
+
+  Struct definition:
+      struct MyStruct {
+          field_one : u8, //FIELD_NAME : TYPE
+          field_two : i64
+      };
+
+      struct MyTupleStruct (i32, u8, String); //a tuple struct
+
+  Instantiating structs:
+    let my_struct = MyStruct{ field_one : 93, field_two : -892351 }; //conventional struct
+    let my_tuple_struct = MyTupleStruct( -9187, 29, String::from("Welcome to XConf") ); //Tuple struct
+
+  Accessing struct data:
+    println!("my_struct.field_one = {}", my_struct.field_one); //conventional struct
+    println!("The third element in my_tuple_struct is {}", my_tuple_struct.2); //tuple struct
+
+  Functiion definition:
+    fn my_function(parm_1 : Type, ..., parm_n : SomeOtherType) { //no return type
+        //body goes here
+    }
+
+    fn my_function(parm_1 : Type, ..., parm_n : SomeOtherType) -&gt; ReturnType { //return type is specified after -&gt;
+        return some_value; //explicit return statement
+    }
+
+    fn my_function(parm_1 : Type, ..., parm_n : SomeOtherType) -&gt; ReturnType { //return type is specified after -&gt;
+        some_value //last statement in an expression block ({}) serves a return if semi-colon absent
+    }
+
+  Macro calls:
+      println is a macro call and is easily identified as it 
+      has a ! between the macro name and the open-bracket (
+
+      The 2 macros we'll come across are println! and panic!
+
+  Enum definition:
+      enum MyEnum {
+          ItemOne,
+          ItemTwo(i32), //store an i32 with ItemTwo
+          ItemThree(String) //A string this time
+      }
+
+  Instantiating an Enum:
+      let enum_item_one = MyEnum::ItemOne;
+      let enum_item_two = MyEnum::ItemTwo(49);
+      let enum_item_three = MyEnum::ItemThree("49 is a great number".to_string() );
+
+  Match expressions:
+      Because match is an expression it can be assigned to a 
+      variable or passed through to a function.
+
+      Syntax:
+          match variable {
+              PATTERN =&gt; EXPRESSION,
+          }
+
+      Example:
+          let my_match_var = 29;
+          match my_match_variable {
+              1 =&gt; println!("Got a small number"),
+              29 =&gt; println!("29 is a prime number"),
+              _ =&gt; println!("Sorry nothing matched"),
+          }
+
+      Notes:
+        - Underscore (_) denotes ANYTHING
+        - Match expressions are exhaustive which implies 
+            we need to deal with all possible values.  Using _
+            is one way of covering all other options that we 
+            don't care about.
+
+  If let expressions:
+      Syntax:
+          if let PATTERN = EXPRESSION {
+              //do some stuff
+          } else { //else is optional
+          }
+
+      Example:
+      if let MyEnum::ItemTwo(val) = my_enum {
+          println!("ItemTwo has value {}", val);
+      }
+
+  
+  Trait Definition:
+    trait MyTrait {
+        fn get_value(amp;self) -&gt; i32; //get_value needs to be implemented when applied to a type
+
+        fn calculate(amp;self) -&gt; i32 { //default implementation can be overridden
+          (self.get_value()-33)*5/8
+        }
+    }
+
+  Generics:
+      - Generics are specified similarly to other languages 
+          using &lt;T&gt; where T is a placeholder for a concrete type.
+      - A lifetime is a special generic denoted with a ' so
+          &lt;'T&gt; denotes lifetime T
+      - Traits are associated with generics by
+          &lt;Type : Trait&gt; or &lt;Type&gt; where Type : Trait
+
+  Generics and structs:
+    struct MyStruct &lt;T&gt; ... //T can be used in the body of the struct
+
+    struct MyStruct &lt;T: SomeTrait&gt; ...  T is available to the body of the struct again, BUT type T must implement trait SomeTrait
+
+    struct MyStruct &lt;T&gt; where T : SomeTrait ...  Alternative for the previous declaration
+
+  Generics and Enums:
+    enum MyEnum &lt;T&gt; ... //T can be used in the body of the struct
+
+    enum MyEnum &lt;T: SomeTrait&gt; ...  T is available to the body of the struct again, BUT type T must implement trait SomeTrait
+
+    enum MyEnum &lt;T&gt; where T : SomeTrait ...  Alternative for the previous declaration
+
+  Generics and functions:
+      fn my_function&lt;T&gt;(t : T, ....) -&gt; ReturnType //can use type T w.r.t. my_function 
+
+      fn my_function&lt;T : SomeTrait&gt;(t : T) -&gt; ReturnType //As above, but T is restricted to types that implement SomeTrait 
+
+      fn my_function&lt;T&gt;(t : T) -&gt; ReturnType where T : SomeTrait //Alternative Dato the previous declarationdelcaration for the previous 
+
+  Referencing:
+      The amp; symbol is used to get a reference to a variable
+      let my_var = 25;
+      let my_ref = amp;my_var;
+
+  Dereferencing:
+      The asterisk (*) is used to dereference;
+      let mut my_var = 25;
+      let my_ref = amp;mut my_var;
+      *my_ref += 76;
+        </pre>
+        <a href="WhatMakesRustFast.html">Next</a>
+    </body>
+</html>

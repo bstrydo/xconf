@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Ownership</title>
+    </head>
+    <body>
+        <pre>
+let v1 = String::from("Please have fun at Xconf");  //this is good
+let v2 = v1;  //this is nice
+println!("v2 = {}", v2);  //all still good
+println!("v1 = {}", v1);  //problem
+
+let v1 = String::from("Ownership in Rust seems weird :-) ");
+println!("v1 = {}", v1); //all is good
+my_func(v1);
+println!("v1 = {}", v1); //Its broken again
+        </pre>
+        <a href="Borrowing.html">Next</a>
+    </body>
+</html>
